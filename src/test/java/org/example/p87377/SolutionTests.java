@@ -89,7 +89,9 @@ public class SolutionTests {
     @DisplayName("교점들, [[1, -1, 0], [2, -1, 0]]")
     void t02() {
         assertThat(
-                new Solution().intersections(
+                (Points) TestUt.callArr(
+                        new Solution(),
+                        "intersections",
                         new int[][]{{0, 1, -1}, {1, 0, 1}}
                 )
         ).isEqualTo(
@@ -101,7 +103,9 @@ public class SolutionTests {
     @DisplayName("교점들, [[0, 1, -1], [1, 0, -1], [1, 0, 1]]")
     void t02_2() {
         assertThat(
-                new Solution().intersections(
+                (Points) TestUt.callArr(
+                        new Solution(),
+                        "intersections",
                         new int[][]{{0, 1, -1}, {1, 0, -1}, {1, 0, 1}}
                 )
         ).isEqualTo(
@@ -113,7 +117,9 @@ public class SolutionTests {
     @DisplayName("교점들, [[1, -1, 0], [2, -1, 0], [4, -1, 0]]")
     void t02_3() {
         assertThat(
-                new Solution().intersections(
+                (Points) TestUt.callArr(
+                        new Solution(),
+                        "intersections",
                         new int[][]{{1, -1, 0}, {2, -1, 0}, {4, -1, 0}}
                 )
         ).isEqualTo(
@@ -125,7 +131,9 @@ public class SolutionTests {
     @DisplayName("교점들, [[2, -1, 4], [-2, -1, 4], [0, -1, 1], [5, -8, -12], [5, 8, 12]]")
     void t02_4() {
         assertThat(
-                new Solution().intersections(
+                (Points) TestUt.callArr(
+                        new Solution(),
+                        "intersections",
                         new int[][]{{2, -1, 4}, {-2, -1, 4}, {0, -1, 1}, {5, -8, -12}, {5, 8, 12}}
                 )
         ).isEqualTo(
@@ -295,7 +303,9 @@ public class SolutionTests {
     @DisplayName("drawOnCoordinate, 1st")
     void t08() {
         assertThat(
-                new Solution().drawOnCoordinate(
+                (String[]) TestUt.callArr(
+                        new Solution(),
+                        "drawOnCoordinate",
                         new char[][]{
                                 {'*', '.'},
                                 {'.', '*'},
@@ -313,7 +323,9 @@ public class SolutionTests {
     @DisplayName("drawOnCoordinate, 2nd")
     void t08_2() {
         assertThat(
-                new Solution().drawOnCoordinate(
+                (String[]) TestUt.callArr(
+                        new Solution(),
+                        "drawOnCoordinate",
                         new char[][]{
                                 {'.', '.', '.', '.', '.', '*'},
                                 {'.', '.', '.', '.', '.', '.'},
@@ -328,7 +340,7 @@ public class SolutionTests {
                                 {'.', '.', '.', '.', '.', '.'},
                                 {'.', '.', '.', '.', '.', '.'},
                                 {'.', '.', '.', '.', '.', '.'},
-                                {'*', '.', '.', '.', '.', '.'}
+                                {'*', '.', '.', '.', '.', '.'},
                         }
                 )
         ).isEqualTo(
