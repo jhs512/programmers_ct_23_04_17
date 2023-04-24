@@ -21,6 +21,7 @@ public class SolutionTests {
                 1
         );
     }
+
     @Test
     @DisplayName("CAA → 2")
     void t02() {
