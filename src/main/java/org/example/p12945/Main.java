@@ -1,6 +1,5 @@
 package org.example.p12945;
 
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,29 +13,26 @@ public class Main {
 
 class Solution {
     public int solution(int n) {
-        BigInteger rs = new Fibonacci().calc(n);
-        rs = rs.mod(BigInteger.valueOf(1234567));
-
-        return rs.intValue();
+        return new Fibonacci().calc(n);
     }
 }
 
-class Fibonacci {
-    Map<Integer, BigInteger> cache = new HashMap<>();
 
-    BigInteger calc(int n) {
+class Fibonacci {
+    Map<Integer, Integer> cache = new HashMap<>();
+
+    int calc(int n) {
         if (cache.containsKey(n)) return cache.get(n);
 
-        BigInteger rs;
+        int rs;
 
         if (n <= 1) {
-            rs = BigInteger.valueOf(n);
+            rs = n;
         } else {
-            BigInteger calcOfNMinus2 = calc(n - 2);
-            BigInteger calcOfNMinus1 = calc(n - 1);
-
-            rs = calcOfNMinus2.add(calcOfNMinus1);
+            rs = calc(n - 2) + calc(n - 1);
         }
+
+        rs %= 1234567;
 
         cache.put(n, rs);
 
