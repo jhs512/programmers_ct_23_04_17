@@ -58,4 +58,10 @@ public class SolutionTests {
 
         assertThat(scores).containsExactly(50, 150, 210, 260);
     }
+
+    @Test
+    @DisplayName("print all queries")
+    void t5() {
+        new Solution().getAllQueries().forEach(System.out::println);
+    }
 }
