@@ -16,4 +16,14 @@ public class SolutionTests {
                 5
         );
     }
+
+    @Test
+    @DisplayName("{4, 1, 2, 1}, 4 → 2")
+    void t02() {
+        assertThat(
+                new Solution().solution(new int[]{4, 1, 2, 1}, 4)
+        ).isEqualTo(
+                2
+        );
+    }
 }
