@@ -16,33 +16,29 @@ class Solution {
                 edges
         );
 
-        pathCalculator.wholePath();
-
-        return pathCalculator.getMaxSheepCountPath().getSheepCount();
+        return pathCalculator.getMaxSheepCount();
     }
 }
 
 class PathCalculator {
     private final int[] info;
-    private final int[][] edges;
     private final boolean[][] tree;
     private Path maxSheepCountPath;
+    private Path firstPath;
 
     public PathCalculator(int[] info, int[][] edges) {
         this.info = info;
-        this.edges = edges;
-
         tree = new boolean[info.length][info.length];
 
         for (int[] edge : edges) {
             tree[edge[0]][edge[1]] = true;
             tree[edge[1]][edge[0]] = true;
         }
+
+        // 계산하기
+        calc();
     }
 
-    public Path getMaxSheepCountPath() {
-        return maxSheepCountPath;
-    }
 
     // 특정 노드를 기준으로, 이동할 수 있는 인접 노드들의 번호를 리턴하는 함수
     public List<Integer> getNextNodes(int currentNode) {
@@ -93,19 +89,20 @@ class PathCalculator {
         return nextNodes;
     }
 
-    public Path wholePath() {
+    private void calc() {
+        // 일단 첫번째 Path 를 만든다.
         Path path = new Path(null, 0, true);
 
+        firstPath = path;
         maxSheepCountPath = path;
 
+        // 첫번째 패스에 인접노드들을 붙여서 childPath 로 추가한다.
         for (int nextNode : getNextNodes(0)) {
-            findPath(path, nextNode);
+            addChildPath(path, nextNode);
         }
-
-        return path;
     }
 
-    private void findPath(Path parentPath, int node) {
+    private void addChildPath(Path parentPath, int node) {
         Path path = parentPath.addChildPath(node, info[node] == 0);
 
         if (path.getSheepCount() == 0) return;
@@ -114,9 +111,17 @@ class PathCalculator {
             maxSheepCountPath = path;
         }
 
-        for (int nextNode : getNextNodes(node, path.history())) {
-            findPath(path, nextNode);
+        for (int nextNode : getNextNodes(node, path.getHistory())) {
+            addChildPath(path, nextNode);
         }
+    }
+
+    public Path getFirstPath() {
+        return firstPath;
+    }
+
+    public int getMaxSheepCount() {
+        return maxSheepCountPath.getSheepCount();
     }
 }
 
@@ -127,6 +132,7 @@ class Path {
     private final List<Path> childPaths;
     private final int sheepCount;
     private final int wolfCount;
+    private List<Integer> history;
 
 
     Path(Path parentPath, int node, boolean isSheep) {
@@ -157,15 +163,13 @@ class Path {
         return path;
     }
 
-    public List<Integer> history() {
-        List<Integer> history = new ArrayList<>();
+    public List<Integer> getHistory() {
+        if (history != null) return history;
 
-        Path path = this;
+        List<Integer> parentPathHistory = parentPath == null ? new ArrayList<>() : parentPath.getHistory();
 
-        while (path != null) {
-            history.add(path.node);
-            path = path.parentPath;
-        }
+        history = new ArrayList<>(parentPathHistory);
+        history.add(node);
 
         return history;
     }
