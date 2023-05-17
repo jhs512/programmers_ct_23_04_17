@@ -10,7 +10,15 @@ public class Main {
 
 class Solution {
     public int solution(int[] info, int[][] edges) {
-        return 3;
+
+        PathCalculator pathCalculator = new PathCalculator(
+                info,
+                edges
+        );
+
+        pathCalculator.wholePath();
+
+        return pathCalculator.getMaxSheepCountPath().getSheepCount();
     }
 }
 
@@ -30,6 +38,10 @@ class PathCalculator {
             tree[edge[0]][edge[1]] = true;
             tree[edge[1]][edge[0]] = true;
         }
+    }
+
+    public Path getMaxSheepCountPath() {
+        return maxSheepCountPath;
     }
 
     // 특정 노드를 기준으로, 이동할 수 있는 인접 노드들의 번호를 리턴하는 함수
