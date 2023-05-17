@@ -108,6 +108,8 @@ class PathCalculator {
     private void findPath(Path parentPath, int node) {
         Path path = parentPath.addChildPath(node, info[node] == 0);
 
+        if (path.getSheepCount() == 0) return;
+
         if (maxSheepCountPath.getSheepCount() < path.getSheepCount()) {
             maxSheepCountPath = path;
         }
